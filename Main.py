@@ -218,7 +218,7 @@ def predict(review):
     #
     result = loaded_model.predict(tokenize_words)
 
-    if y >= 0.7:
+    if result >= 0.7:
         res = "positive"
     else:
         res = "negative"
