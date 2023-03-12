@@ -179,15 +179,6 @@ def train_data():
     y_predict = (model.predict(x_data_test, batch_size=64) >
                  0.5).astype("int32")  # kalau make sigmoid
 
-    true = 0
-    for i, y in enumerate(y_data_test):
-        if y == y_predict[i]:
-            true += 1
-
-    print('Correct Prediction: {}'.format(true))
-    print('Wrong Prediction: {}'.format(len(y_predict) - true))
-    print('Accuracy: {}'.format(true/len(y_predict)*100))
-
     return len(acc)-1
 
 
@@ -197,21 +188,19 @@ def predict(review):
 
     #review = 'Despite a good theme, great acting and important messages that this movie convey in an unorthodox way, I think it fails to connect the audience with the storyline and leaves him in a world of confusion. Although, majority of reviews find this movie entertaining and interesting, yet I would choose to be a minority that believes that this movie is extremely overrated.'
 
-    x_testing = review
     # PRE-PROCESS REVIEW
     # remove html tag
-    x_testing = x_testing.replace({'<.*?>': ''}, regex=True)
-    # remove non alphabet
-    x_testing = x_testing.replace({'[^A-Za-z]': ' '}, regex=True)
-    x_testing = x_testing.apply(lambda review: [w for w in review.split(
-    ) if w not in english_stops])  # remove stop words
-    x_testing = x_testing.apply(lambda review: [w.lower()
-                                                for w in review])   # lower case
+    regex = re.compile(r'[^a-zA-Z\s]')
+    review = regex.sub('', review)
+    #print('Cleaned: ', review)
 
-    x_testing = x_testing.map(' '.join)
+    words = review.split(' ')
+    filtered = [w for w in words if w not in english_stops]
+    filtered = ' '.join(filtered)
+    filtered = [filtered.lower()]
 
     #
-    tokenize_words = token.texts_to_sequences(x_testing)
+    tokenize_words = token.texts_to_sequences(filtered)
     tokenize_words = pad_sequences(
         tokenize_words, maxlen=max_length, padding='post', truncating='post')
 
