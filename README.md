@@ -25,4 +25,4 @@ How to Run
 4. To test the model, fill the Input Text textbox with any instance and click "Predict" button. When the process done, the result will be either Posiitve or Negative and appear in Result box.
 ![Screenshot 2023-03-16 145103](https://user-images.githubusercontent.com/79553697/225550088-00282002-b2ea-4e56-aa12-94cc5327fcfc.jpg)
 
-5. To close the Gui, click "Exit" button and confirm to exit.
+5. To close the Gui, click "Exit" button and click Yes to confirm.
